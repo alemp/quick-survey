@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +37,7 @@ export class SurveyPageComponent implements OnInit {
   service = inject(SurveyService);
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
+  translationService = inject(TranslateService);
 
   form: FormGroup<FeedbackForm> | undefined;
   metadata: { [key: string]: string } | undefined;
@@ -62,6 +63,12 @@ export class SurveyPageComponent implements OnInit {
     this.activatedRoute.queryParams.pipe(
       take(1),
     ).subscribe(async (queryParams) => {
+      const language = queryParams['language'];
+
+      if (language) {
+        this.translationService.use(language);
+      }
+
       this.metadata = queryParams;
     });
   }
@@ -76,7 +83,7 @@ export class SurveyPageComponent implements OnInit {
 
     if (this.form?.valid) {
       this.loading = true;
-      
+
       const data: FeedbackDto = {
         ...this.form.getRawValue(),
         metadata: this.metadata!,
