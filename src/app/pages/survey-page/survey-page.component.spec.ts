@@ -8,7 +8,7 @@ describe('SurveyPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SurveyPageComponent]
+      imports: [SurveyPageComponent],
     });
     fixture = TestBed.createComponent(SurveyPageComponent);
     component = fixture.componentInstance;

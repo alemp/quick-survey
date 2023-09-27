@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SurveyService } from '../../services/survey.service';
 import { FeedbackDto } from '../../dtos/feedback.dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs';
+import { finalize, take } from 'rxjs';
 
 interface FeedbackForm {
   score: FormControl<number>;
@@ -40,6 +40,7 @@ export class SurveyPageComponent implements OnInit {
 
   form: FormGroup<FeedbackForm> | undefined;
   metadata: { [key: string]: string } | undefined;
+  loading = false;
 
   ngOnInit() {
     this.createForm();
@@ -74,6 +75,8 @@ export class SurveyPageComponent implements OnInit {
     this.form?.markAsTouched();
 
     if (this.form?.valid) {
+      this.loading = true;
+      
       const data: FeedbackDto = {
         ...this.form.getRawValue(),
         metadata: this.metadata!,
@@ -81,6 +84,7 @@ export class SurveyPageComponent implements OnInit {
 
       this.service.saveSurvey(data).pipe(
         take(1),
+        finalize(() => this.loading = false),
       ).subscribe(async data => {
         if (data) {
           await this.router.navigate(['/', 'thanks']);

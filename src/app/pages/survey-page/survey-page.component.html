@@ -1,14 +1,19 @@
 <div class="container">
   <app-logo></app-logo>
   <h1>{{ 'Delivery Feedback' | translate }}</h1>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+  <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form">
     <div class="stars-container">
       <p>{{ 'How likely are you to recommend us?'| translate }}</p>
       <div class="stars-wrapper" title="Rating: {{ form.controls.score.value }} out of 5 stars">
-        <div class="star-button-wrapper" *ngFor="let i of [1,2,3,4,5]">
-          <button class="star-button" type="button" (click)="setRating(i)" attr.aria-label="Set Rating to {{i}} stars">
-            <mat-icon [ngClass]="'star-'+ i" class="star star-full" *ngIf="form.controls.score && form.controls.score.value >= i">star</mat-icon>
-            <mat-icon [ngClass]="'star-'+ i" class="star star-empty" *ngIf="form.controls.score && form.controls.score.value < i">star_border
+        <div *ngFor="let i of [1,2,3,4,5]" class="star-button-wrapper">
+          <button (click)="setRating(i)" attr.aria-label="Set Rating to {{i}} stars" class="star-button" type="button">
+            <mat-icon *ngIf="form.controls.score && form.controls.score.value >= i"
+                      [ngClass]="'star-'+ i"
+                      class="star star-full">star
+            </mat-icon>
+            <mat-icon *ngIf="form.controls.score && form.controls.score.value < i"
+                      [ngClass]="'star-'+ i"
+                      class="star star-empty">star_border
             </mat-icon>
           </button>
         </div>
@@ -17,10 +22,10 @@
     </div>
     <mat-form-field class="details">
       <mat-label>{{ 'Comment' | translate }}</mat-label>
-      <textarea formControlName="details" rows="4" matInput></textarea>
+      <textarea formControlName="details" matInput rows="4"></textarea>
     </mat-form-field>
     <div class="button-container">
-      <button type="submit" mat-flat-button color="primary">Submit</button>
+      <button [disabled]="loading" color="primary" mat-flat-button type="submit">Submit</button>
     </div>
   </form>
 </div>
