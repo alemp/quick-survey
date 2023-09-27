@@ -44,4 +44,16 @@
   .details {
     width: 500px;
   }
+
+  @media (max-width: 767px) {
+    .button {
+      &-container {
+        width: calc(100% - 25px);
+      }
+    }
+
+    .details {
+      width: calc(100% - 25px);
+    }
+  }
 }
