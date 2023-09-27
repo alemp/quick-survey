@@ -8,7 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SurveyService } from '../../services/survey.service';
 import { FeedbackDto } from '../../dtos/feedback.dto';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 
 interface FeedbackForm {
   score: FormControl<number>;
@@ -32,13 +33,20 @@ interface FeedbackForm {
   styleUrls: ['./survey-page.component.scss'],
 })
 export class SurveyPageComponent implements OnInit {
-  form: FormGroup<FeedbackForm> | undefined;
-
   fb = inject(FormBuilder);
   service = inject(SurveyService);
   router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
+
+  form: FormGroup<FeedbackForm> | undefined;
+  metadata: { [key: string]: string } | undefined;
 
   ngOnInit() {
+    this.createForm();
+    this.subscribeToQueryParams();
+  }
+
+  createForm() {
     this.form = this.fb.group<FeedbackForm>(<FeedbackForm>{
       score: new FormControl<number>(0, {
         validators: [
@@ -46,6 +54,14 @@ export class SurveyPageComponent implements OnInit {
         ],
       }),
       details: new FormControl<string | null>(null),
+    });
+  }
+
+  subscribeToQueryParams() {
+    this.activatedRoute.queryParams.pipe(
+      take(1),
+    ).subscribe(async (queryParams) => {
+      this.metadata = queryParams;
     });
   }
 
@@ -60,17 +76,16 @@ export class SurveyPageComponent implements OnInit {
     if (this.form?.valid) {
       const data: FeedbackDto = {
         ...this.form.getRawValue(),
-        metadata: {
-          test: 'aaa',
-        },
+        metadata: this.metadata!,
       };
-      this.service.saveSurvey(data).subscribe(async data => {
+
+      this.service.saveSurvey(data).pipe(
+        take(1),
+      ).subscribe(async data => {
         if (data) {
           await this.router.navigate(['/', 'thanks']);
         }
       });
     }
   }
-
-  // TODO: read query params and store in an object
 }

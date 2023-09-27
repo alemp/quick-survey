@@ -1,3 +1,3 @@
-export interface IEnvironment {
-  apiUrlPrefix: string;
+export interface Environment {
+  apiUrl: string;
 }

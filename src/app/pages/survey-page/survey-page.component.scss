@@ -1,5 +1,6 @@
 .container {
   padding: 16px;
+  width: 100%;
 
   h1 {
     padding-top: 32px;
@@ -34,6 +35,10 @@
       display: flex;
       justify-content: flex-end;
     }
+  }
+
+  .star {
+    color: #00469b;
   }
 
   .details {

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import {IEnvironment} from "../dtos/environment.dto";
-import {HttpClient} from "@angular/common/http";
+import { Environment } from '../dtos/environment.dto';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class EnvironmentService {
-  private environment?: IEnvironment = undefined;
+  private environment?: Environment = undefined;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
-  getEnvironment(): IEnvironment {
+  getEnvironment(): Environment {
     return this.environment!;
   }
 
   load(): Promise<any> {
     console.log(`getSettings:: before http.get call`);
     return this.http
-      .get<IEnvironment>('../assets/env/environment.json')
+      .get<Environment>('../assets/env/environment.json')
       .toPromise()
       .then((environment) => {
         this.environment = environment;
