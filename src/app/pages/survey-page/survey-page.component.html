@@ -1,3 +1,26 @@
-<!-- logo SVG -->
-<h1>{{ 'Delivery Feedback' | translate }}</h1>
-<!-- form -->
+<div class="container">
+  <app-logo></app-logo>
+  <h1>{{ 'Delivery Feedback' | translate }}</h1>
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="stars-container">
+      <p>{{ 'How likely are you to recommend us?'| translate }}</p>
+      <div class="stars-wrapper" title="Rating: {{ form.controls.score.value }} out of 5 stars">
+        <div class="star-button-wrapper" *ngFor="let i of [1,2,3,4,5]">
+          <button class="star-button" type="button" (click)="setRating(i)" attr.aria-label="Set Rating to {{i}} stars">
+            <mat-icon class="full-star" *ngIf="form.controls.score && form.controls.score.value >= i">star</mat-icon>
+            <mat-icon class="empty-star" *ngIf="form.controls.score && form.controls.score.value < i">star_border
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-error *ngIf="form.controls.score.value === 0 && form.touched">You need to inform the value</mat-error>
+    </div>
+    <mat-form-field class="details">
+      <mat-label>{{ 'Comment' | translate }}</mat-label>
+      <textarea formControlName="details" rows="4" matInput></textarea>
+    </mat-form-field>
+    <div class="button-container">
+      <button type="submit" mat-flat-button color="primary">Submit</button>
+    </div>
+  </form>
+</div>

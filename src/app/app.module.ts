@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LOCALES } from './constants/locales';
 import { registerLocaleData } from '@angular/common';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -35,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: LOCALES.GERMAN },
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
   ],
   bootstrap: [AppComponent],
 })

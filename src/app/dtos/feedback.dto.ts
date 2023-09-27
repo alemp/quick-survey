@@ -1,5 +1,5 @@
 export interface FeedbackDto {
   score: number;
-  details: string;
-  data: { [key: string]: string };
+  details: string | null;
+  metadata: { [key: string]: string };
 }

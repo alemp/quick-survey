@@ -1,0 +1,42 @@
+.container {
+  padding: 16px;
+
+  h1 {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .stars {
+    &-container {
+      margin-bottom: 32px;
+    }
+
+    &-wrapper {
+      display: flex;
+
+      .star-button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        .mat-icon {
+          width: 48px;
+          height: 48px;
+          font-size: 48px;
+        }
+      }
+    }
+  }
+
+  .button {
+    &-container {
+      width: 500px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .details {
+    width: 500px;
+  }
+}

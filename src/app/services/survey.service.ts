@@ -1,34 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {FeedbackDto} from "../dtos/feedback.dto";
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FeedbackDto } from '../dtos/feedback.dto';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SurveyService {
+  httpClient = inject(HttpClient);
 
-  constructor(private readonly httpClient: HttpClient) {
+  saveSurvey(data: FeedbackDto): Observable<FeedbackDto | null> {
+    return this.httpClient.post<FeedbackDto>('feedback', data, { observe: 'response' }).pipe(
+      map(res => res.body),
+    );
   }
-
-
-  saveSurvey() {
-
-    let survey = {
-      detail: "test",
-      score: 1,
-      metadata: {
-        'Name': 'rHENUSO HI TEX',
-        'Client': 'Im Client',
-      }
-    } as FeedbackDto;
-
-    this.httpClient.post('feedback', survey, { observe: 'response' }).subscribe(
-      (res) => {
-        if (res.status == 200) {
-          console.log(res);
-        }
-      }, (err) => {
-        alert("There was a problem with your survey");
-      });
-}
 }
