@@ -52,6 +52,12 @@
       }
     }
 
+    .stars {
+      &-container {
+        width: calc(100% - 25px);
+      }
+    }
+
     .details {
       width: calc(100% - 25px);
     }
