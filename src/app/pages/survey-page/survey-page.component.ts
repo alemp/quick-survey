@@ -10,6 +10,7 @@ import { SurveyService } from '../../services/survey.service';
 import { FeedbackDto } from '../../dtos/feedback.dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs';
+import { LanguagePickerComponent } from '../../components/language-picker/language-picker.component';
 
 interface FeedbackForm {
   score: FormControl<number>;
@@ -28,6 +29,7 @@ interface FeedbackForm {
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    LanguagePickerComponent,
   ],
   templateUrl: './survey-page.component.html',
   styleUrls: ['./survey-page.component.scss'],

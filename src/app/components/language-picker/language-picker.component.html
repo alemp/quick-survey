@@ -1,0 +1,7 @@
+<button class="language-picker" mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon [svgIcon]="getFlag()"></mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before">
+  <button (click)="selectLanguage('de-DE')" mat-menu-item>{{ 'German' | translate }}</button>
+  <button (click)="selectLanguage('en-GB')" mat-menu-item>{{ 'English' | translate }}</button>
+</mat-menu>

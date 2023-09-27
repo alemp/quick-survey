@@ -7,6 +7,12 @@
     padding-bottom: 32px;
   }
 
+  .title {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+  }
+
   .stars {
     &-container {
       margin-bottom: 32px;
@@ -50,6 +56,10 @@
       &-container {
         width: calc(100% - 25px);
       }
+    }
+
+    .title {
+      width: calc(100% - 25px);
     }
 
     .stars {

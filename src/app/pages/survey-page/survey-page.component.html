@@ -1,6 +1,9 @@
 <div class="container">
   <app-logo></app-logo>
-  <h1>{{ 'Delivery Feedback' | translate }}</h1>
+  <div class="title">
+    <h1>{{ 'Delivery Feedback' | translate }}</h1>
+    <app-language-picker></app-language-picker>
+  </div>
   <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form">
     <div class="stars-container">
       <p>{{ 'How likely are you to recommend us?'| translate }}</p>
@@ -25,7 +28,7 @@
       <textarea formControlName="details" matInput rows="4"></textarea>
     </mat-form-field>
     <div class="button-container">
-      <button [disabled]="loading" color="primary" mat-flat-button type="submit">Submit</button>
+      <button [disabled]="loading" color="primary" mat-flat-button type="submit">{{ 'Submit' | translate }}</button>
     </div>
   </form>
 </div>
