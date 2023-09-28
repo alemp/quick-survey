@@ -131,6 +131,7 @@ export class SurveyPageComponent implements OnInit {
             metadata: {
               ...this.metadata!,
               type: this.feedbackTypes[i],
+              language: this.translationService.currentLang,
             },
           };
 

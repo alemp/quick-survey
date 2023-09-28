@@ -71,6 +71,12 @@
 
 @media (max-width: 767px) {
   .container {
-    width: calc(100% - 25px);
+    width: calc(100% - 32px) !important;
+  }
+
+  .star-button {
+    &-wrapper {
+      width: calc(calc(100% - 32px) / 4) !important;
+    }
   }
 }
