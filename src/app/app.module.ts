@@ -14,9 +14,7 @@ import { registerLocaleData } from '@angular/common';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ApiUrlInterceptor } from './interceptor/interceptor';
 import { EnvironmentService } from './services/environment.service';
-import { QrCodeEditComponent } from './pages/qr-code-edit/qr-code-edit.component';
-import {LanguagePickerComponent} from "./components/language-picker/language-picker.component";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -39,7 +37,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
 
     }),
-    LanguagePickerComponent,
     FormsModule,
   ],
   providers: [
