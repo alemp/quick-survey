@@ -1,0 +1,26 @@
+.container {
+  padding: 16px;
+  width: 100%;
+
+  h1 {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+  }
+
+  .button {
+    &-container {
+      width: 500px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+ .table {
+   border: 1px solid black;
+ }
+}
