@@ -2,19 +2,33 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LogoComponent } from '../../components/logo/logo.component';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SurveyService } from '../../services/survey.service';
 import { FeedbackDto } from '../../dtos/feedback.dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, take } from 'rxjs';
+import { finalize, forkJoin, take } from 'rxjs';
 import { LanguagePickerComponent } from '../../components/language-picker/language-picker.component';
+import { v4 as uuidv4 } from 'uuid';
+import { MatExpansionModule } from '@angular/material/expansion';
 
-interface FeedbackForm {
+interface FeedbackControls {
   score: FormControl<number>;
   details: FormControl<string | null>;
+}
+
+interface FeedbackForm {
+  questions: FormArray<FormGroup<FeedbackControls>>;
 }
 
 @Component({
@@ -30,6 +44,7 @@ interface FeedbackForm {
     MatIconModule,
     MatButtonModule,
     LanguagePickerComponent,
+    MatExpansionModule,
   ],
   templateUrl: './survey-page.component.html',
   styleUrls: ['./survey-page.component.scss'],
@@ -44,20 +59,40 @@ export class SurveyPageComponent implements OnInit {
   form: FormGroup<FeedbackForm> | undefined;
   metadata: { [key: string]: string } | undefined;
   loading = false;
+  feedbackTypes = [
+    'overall',
+    'punctuality',
+    'service',
+    'cleanliness',
+    'damaged goods',
+  ];
 
   ngOnInit() {
     this.createForm();
     this.subscribeToQueryParams();
   }
 
-  createForm() {
-    this.form = this.fb.group<FeedbackForm>(<FeedbackForm>{
+  createFormGroup(): FormGroup<FeedbackControls> {
+    return this.fb.group({
       score: new FormControl<number>(0, {
+        nonNullable: true,
         validators: [
           Validators.required,
         ],
       }),
       details: new FormControl<string | null>(null),
+    });
+  }
+
+  createForm() {
+    this.form = this.fb.group<FeedbackForm>(<FeedbackForm>{
+      questions: this.fb.array<FormGroup<FeedbackControls>>([
+        this.createFormGroup(),
+        this.createFormGroup(),
+        this.createFormGroup(),
+        this.createFormGroup(),
+        this.createFormGroup(),
+      ]),
     });
   }
 
@@ -71,12 +106,15 @@ export class SurveyPageComponent implements OnInit {
         this.translationService.use(language);
       }
 
-      this.metadata = queryParams;
+      this.metadata = {
+        ...queryParams,
+        uuid: uuidv4(),
+      };
     });
   }
 
-  setRating(value: number) {
-    this.form?.controls.score.setValue(value);
+  setRating(index: number, value: number) {
+    this.form?.controls.questions.at(index)?.controls.score.setValue(value);
   }
 
   submit() {
@@ -84,23 +122,33 @@ export class SurveyPageComponent implements OnInit {
     this.form?.markAsTouched();
 
     if (this.form?.valid) {
-      if (this.form.controls.score.value !== 0) {
-        this.loading = true;
 
-        const data: FeedbackDto = {
-          ...this.form.getRawValue(),
-          metadata: this.metadata!,
-        };
+      this.loading = true;
+      const requests = [];
 
-        this.service.saveSurvey(data).pipe(
-          take(1),
-          finalize(() => this.loading = false),
-        ).subscribe(async data => {
-          if (data) {
-            await this.router.navigate(['/', 'thanks']);
-          }
-        });
+      for (let i=0; i < this.form.controls.questions.controls.length; i++) {
+        if (this.form.controls.questions.at(i).controls.score.value !== 0) {
+          const data: FeedbackDto = {
+            ...this.form.controls.questions.at(i).getRawValue(),
+            metadata: {
+              ...this.metadata!,
+              type: this.feedbackTypes[i]
+            },
+          };
+
+          requests.push(this.service.saveSurvey(data).pipe(
+            take(1),
+          ));
+        }
       }
+
+      forkJoin(requests).pipe(
+        finalize(() => this.loading = false),
+      ).subscribe(async data => {
+        if (data) {
+          await this.router.navigate(['/', 'thanks']);
+        }
+      });
     }
   }
 }

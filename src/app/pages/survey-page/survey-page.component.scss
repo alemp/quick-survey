@@ -37,6 +37,7 @@
 
   .button {
     &-container {
+      margin-top: 16px;
       width: 500px;
       display: flex;
       justify-content: flex-end;
@@ -48,6 +49,10 @@
   }
 
   .details {
+    width: 100%;
+  }
+
+  .expansion {
     width: 500px;
   }
 
@@ -69,6 +74,10 @@
     }
 
     .details {
+      width: calc(100% - 25px);
+    }
+
+    .expansion {
       width: calc(100% - 25px);
     }
   }

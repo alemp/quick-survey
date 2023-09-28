@@ -4,31 +4,50 @@
     <h1>{{ 'Delivery Feedback' | translate }}</h1>
     <app-language-picker></app-language-picker>
   </div>
-  <form (ngSubmit)="submit()" *ngIf="form" [formGroup]="form">
-    <div class="stars-container">
-      <p>{{ 'How likely are you to recommend us?'| translate }}</p>
-      <div class="stars-wrapper" title="Rating: {{ form.controls.score.value }} out of 5 stars">
-        <div *ngFor="let i of [1,2,3,4,5]" class="star-button-wrapper">
-          <button (click)="setRating(i)" attr.aria-label="Set Rating to {{i}} stars" class="star-button" type="button">
-            <mat-icon *ngIf="form.controls.score && form.controls.score.value >= i"
-                      [ngClass]="'star-'+ i"
-                      class="star star-full">star
-            </mat-icon>
-            <mat-icon *ngIf="form.controls.score && form.controls.score.value < i"
-                      [ngClass]="'star-'+ i"
-                      class="star star-empty">star_border
-            </mat-icon>
-          </button>
+  <form *ngIf="form" [formGroup]="form">
+    <ng-container
+      formArrayName="questions"
+      *ngFor="let feedbackForm of form.controls.questions.controls; let index = index"
+    >
+      <ng-container [formGroupName]="index">
+        <div class="stars-container">
+          <p>{{ feedbackTypes[index] | translate }}</p>
+          <div class="stars-wrapper" title="Rating: {{ feedbackForm.controls.score.value }} out of 5 stars">
+            <div *ngFor="let value of [1,2,3,4,5]" class="star-button-wrapper">
+              <button (click)="setRating(index, value)" class="star-button" type="button">
+                <mat-icon *ngIf="feedbackForm.controls.score && feedbackForm.controls.score.value >= value"
+                          [ngClass]="'star-'+ value"
+                          class="star star-full">star
+                </mat-icon>
+                <mat-icon *ngIf="feedbackForm.controls.score && feedbackForm.controls.score.value < value"
+                          [ngClass]="'star-'+ value"
+                          class="star star-empty">
+                  star_border
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-error *ngIf="feedbackForm.controls.score.value === 0 && feedbackForm.touched">
+            {{ 'You need to click on one star' | translate }}
+          </mat-error>
         </div>
-      </div>
-      <mat-error *ngIf="form.controls.score.value === 0 && form.touched">{{ 'You need to click on one star' | translate}}</mat-error>
-    </div>
-    <mat-form-field class="details">
-      <mat-label>{{ 'Comment' | translate }}</mat-label>
-      <textarea formControlName="details" matInput rows="4"></textarea>
-    </mat-form-field>
+        <mat-expansion-panel class="expansion">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ 'Comment' | translate }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field class="details">
+            <mat-label>{{ 'Comment' | translate }}</mat-label>
+            <textarea formControlName="details" matInput rows="4"></textarea>
+          </mat-form-field>
+        </mat-expansion-panel>
+      </ng-container>
+    </ng-container>
     <div class="button-container">
-      <button [disabled]="loading" color="primary" mat-flat-button type="submit">{{ 'Submit' | translate }}</button>
+      <button (click)="submit()"
+              [disabled]="loading"
+              color="primary"
+              mat-flat-button
+              type="submit">{{ 'Submit' | translate }}</button>
     </div>
   </form>
 </div>
