@@ -11,5 +11,7 @@
   "communication": "How would you rate our communication with you?",
   "professionalism": "How would you rate our professionalism",
   "very unsatisfied": "Very unsatisfied",
-  "very satisfied": "Very satisfied"
+  "very satisfied": "Very satisfied",
+  "very unlikely": "very unlikely",
+  "very likely": "very likely"
 }

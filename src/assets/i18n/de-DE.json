@@ -11,5 +11,7 @@
   "communication": "Wie würden Sie unsere Kommunikation mit Ihnen bewerten?",
   "professionalism": "Wie würden Sie unsere Professionalität bewerten?",
   "very unsatisfied": "sehr unbefriedigt",
-  "very satisfied": "sehr zufrieden"
+  "very satisfied": "sehr zufrieden",
+  "very unlikely": "sehr unwahrscheinlich",
+  "very likely": "sehr wahrscheinlich"
 }
