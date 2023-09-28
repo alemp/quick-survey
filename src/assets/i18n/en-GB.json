@@ -1,10 +1,13 @@
 {
   "Delivery Feedback": "Delivery Feedback",
   "Thanks for your feedback": "Thanks for your feedback",
-  "How likely are you to recommend us?": "How likely are you to recommend us?",
   "Comment": "Comment",
   "German": "German",
   "English": "English",
   "Submit": "Submit",
-  "You need to click on one star": "You need to click on one star"
+  "You need to click on one star": "You need to click on one star",
+  "overall": "How likely are you to recommend us?",
+  "punctuality": "How would you rate the punctuality of our service?",
+  "communication": "How would you rate our communication with you?",
+  "professionalism": "How would you rate our professionalism"
 }

@@ -6,12 +6,12 @@
   </div>
   <form *ngIf="form" [formGroup]="form">
     <ng-container
-      formArrayName="questions"
       *ngFor="let feedbackForm of form.controls.questions.controls; let index = index"
+      formArrayName="questions"
     >
       <ng-container [formGroupName]="index">
         <div class="stars-container">
-          <p>{{ feedbackTypes[index] | translate }}</p>
+          <p class="question-title">{{ feedbackTypes[index] | translate }}</p>
           <div class="stars-wrapper" title="Rating: {{ feedbackForm.controls.score.value }} out of 5 stars">
             <div *ngFor="let value of [1,2,3,4,5]" class="star-button-wrapper">
               <button (click)="setRating(index, value)" class="star-button" type="button">
@@ -47,7 +47,7 @@
               [disabled]="loading"
               color="primary"
               mat-flat-button
-              type="submit">{{ 'Submit' | translate }}</button>
+              type="button">{{ 'Submit' | translate }}</button>
     </div>
   </form>
 </div>

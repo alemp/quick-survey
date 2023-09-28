@@ -3,7 +3,7 @@
   width: 100%;
 
   h1 {
-    padding-top: 32px;
+    padding-top: 16px;
     padding-bottom: 32px;
   }
 
@@ -11,6 +11,10 @@
     display: flex;
     justify-content: space-between;
     width: 500px;
+  }
+
+  .question-title {
+    margin-top: 32px;
   }
 
   .stars {

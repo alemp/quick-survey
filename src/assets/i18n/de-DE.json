@@ -1,10 +1,13 @@
 {
   "Delivery Feedback": "Liefer-feedback",
   "Thanks for your feedback": "Vielen Dank für Ihr Feedback",
-  "How likely are you to recommend us?": "Wie wahrscheinlich ist es, dass Sie uns weiterempfehlen?",
   "Comment": "Kommentar",
   "German": "Deutsch",
   "English": "Englisch",
   "Submit": "Einreichen",
-  "You need to click on one star": "Sie müssen auf einen Stern klicken"
+  "You need to click on one star": "Sie müssen auf einen Stern klicken",
+  "overall": "Wie wahrscheinlich ist es, dass Sie uns weiterempfehlen?",
+  "punctuality": "Wie würden Sie die Pünktlichkeit unseres Services bewerten?",
+  "communication": "Wie würden Sie unsere Kommunikation mit Ihnen bewerten?",
+  "professionalism": "Wie würden Sie unsere Professionalität bewerten?"
 }

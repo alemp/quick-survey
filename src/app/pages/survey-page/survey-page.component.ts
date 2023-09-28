@@ -62,9 +62,8 @@ export class SurveyPageComponent implements OnInit {
   feedbackTypes = [
     'overall',
     'punctuality',
-    'service',
-    'cleanliness',
-    'damaged goods',
+    'communication',
+    'professionalism',
   ];
 
   ngOnInit() {
@@ -87,7 +86,6 @@ export class SurveyPageComponent implements OnInit {
   createForm() {
     this.form = this.fb.group<FeedbackForm>(<FeedbackForm>{
       questions: this.fb.array<FormGroup<FeedbackControls>>([
-        this.createFormGroup(),
         this.createFormGroup(),
         this.createFormGroup(),
         this.createFormGroup(),
@@ -126,13 +124,13 @@ export class SurveyPageComponent implements OnInit {
       this.loading = true;
       const requests = [];
 
-      for (let i=0; i < this.form.controls.questions.controls.length; i++) {
+      for (let i = 0; i < this.form.controls.questions.controls.length; i++) {
         if (this.form.controls.questions.at(i).controls.score.value !== 0) {
           const data: FeedbackDto = {
             ...this.form.controls.questions.at(i).getRawValue(),
             metadata: {
               ...this.metadata!,
-              type: this.feedbackTypes[i]
+              type: this.feedbackTypes[i],
             },
           };
 

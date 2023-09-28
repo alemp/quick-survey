@@ -8,7 +8,7 @@ describe('LanguagePickerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LanguagePickerComponent]
+      imports: [LanguagePickerComponent],
     });
     fixture = TestBed.createComponent(LanguagePickerComponent);
     component = fixture.componentInstance;

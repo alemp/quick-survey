@@ -52,5 +52,7 @@ export class AppModule {
     registerLocaleData(enLocale, LOCALES.ENGLISH);
 
     this.environmentService.load();
+
+    this.translateService.use(LOCALES.GERMAN);
   }
 }
