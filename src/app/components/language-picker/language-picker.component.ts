@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LOCALES } from '../../constants/locales';
 
 @Component({
   selector: 'app-language-picker',
@@ -30,6 +31,7 @@ export class LanguagePickerComponent {
   constructor() {
     this.matIconRegistry.addSvgIcon('de', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/de.svg'));
     this.matIconRegistry.addSvgIcon('gb', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/gb.svg'));
+    this.matIconRegistry.addSvgIcon('pt', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/pt.svg'));
   }
 
   selectLanguage(language: string) {
@@ -38,8 +40,10 @@ export class LanguagePickerComponent {
 
   getFlag() {
     const language = this.translateService.currentLang;
-    if (language === 'de-DE') {
+    if (language === LOCALES.GERMAN) {
       return 'de';
+    } else if (language === LOCALES.PORTUGUESE) {
+      return 'pt';
     }
 
     return 'gb';
