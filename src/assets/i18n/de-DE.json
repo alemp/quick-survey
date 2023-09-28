@@ -9,5 +9,7 @@
   "overall": "Wie wahrscheinlich ist es, dass Sie uns weiterempfehlen?",
   "punctuality": "Wie würden Sie die Pünktlichkeit unseres Services bewerten?",
   "communication": "Wie würden Sie unsere Kommunikation mit Ihnen bewerten?",
-  "professionalism": "Wie würden Sie unsere Professionalität bewerten?"
+  "professionalism": "Wie würden Sie unsere Professionalität bewerten?",
+  "very unsatisfied": "sehr unbefriedigt",
+  "very satisfied": "sehr zufrieden"
 }

@@ -25,6 +25,8 @@
                   star_border
                 </mat-icon>
               </button>
+              <small *ngIf="value === 1">{{ 'very unsatisfied' | translate }}</small>
+              <small *ngIf="value === 5">{{ 'very satisfied' | translate }}</small>
             </div>
           </div>
           <mat-error *ngIf="feedbackForm.controls.score.value === 0 && feedbackForm.touched">

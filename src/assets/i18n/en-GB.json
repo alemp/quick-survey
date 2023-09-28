@@ -9,5 +9,7 @@
   "overall": "How likely are you to recommend us?",
   "punctuality": "How would you rate the punctuality of our service?",
   "communication": "How would you rate our communication with you?",
-  "professionalism": "How would you rate our professionalism"
+  "professionalism": "How would you rate our professionalism",
+  "very unsatisfied": "Very unsatisfied",
+  "very satisfied": "Very satisfied"
 }

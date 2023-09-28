@@ -1,6 +1,6 @@
 .container {
   padding: 16px;
-  width: 100%;
+  width: 500px;
 
   h1 {
     padding-top: 16px;
@@ -10,7 +10,7 @@
   .title {
     display: flex;
     justify-content: space-between;
-    width: 500px;
+    width: 100%;
   }
 
   .question-title {
@@ -24,6 +24,7 @@
 
     &-wrapper {
       display: flex;
+      justify-content: space-between;
 
       .star-button {
         border: none;
@@ -35,6 +36,13 @@
           height: 48px;
           font-size: 48px;
         }
+
+        &-wrapper {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          width: 100px;
+        }
       }
     }
   }
@@ -42,7 +50,7 @@
   .button {
     &-container {
       margin-top: 16px;
-      width: 500px;
+      width: 100%;
       display: flex;
       justify-content: flex-end;
     }
@@ -57,31 +65,11 @@
   }
 
   .expansion {
-    width: 500px;
+    width: 100%;
   }
 
   @media (max-width: 767px) {
-    .button {
-      &-container {
-        width: calc(100% - 25px);
-      }
-    }
-
-    .title {
-      width: calc(100% - 25px);
-    }
-
-    .stars {
-      &-container {
-        width: calc(100% - 25px);
-      }
-    }
-
-    .details {
-      width: calc(100% - 25px);
-    }
-
-    .expansion {
+    .container {
       width: calc(100% - 25px);
     }
   }
