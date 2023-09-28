@@ -84,21 +84,23 @@ export class SurveyPageComponent implements OnInit {
     this.form?.markAsTouched();
 
     if (this.form?.valid) {
-      this.loading = true;
+      if (this.form.controls.score.value !== 0) {
+        this.loading = true;
 
-      const data: FeedbackDto = {
-        ...this.form.getRawValue(),
-        metadata: this.metadata!,
-      };
+        const data: FeedbackDto = {
+          ...this.form.getRawValue(),
+          metadata: this.metadata!,
+        };
 
-      this.service.saveSurvey(data).pipe(
-        take(1),
-        finalize(() => this.loading = false),
-      ).subscribe(async data => {
-        if (data) {
-          await this.router.navigate(['/', 'thanks']);
-        }
-      });
+        this.service.saveSurvey(data).pipe(
+          take(1),
+          finalize(() => this.loading = false),
+        ).subscribe(async data => {
+          if (data) {
+            await this.router.navigate(['/', 'thanks']);
+          }
+        });
+      }
     }
   }
 }

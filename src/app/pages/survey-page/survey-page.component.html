@@ -21,7 +21,7 @@
           </button>
         </div>
       </div>
-      <mat-error *ngIf="form.controls.score.value === 0 && form.touched">You need to inform the value</mat-error>
+      <mat-error *ngIf="form.controls.score.value === 0 && form.touched">{{ 'You need to click on one star' | translate}}</mat-error>
     </div>
     <mat-form-field class="details">
       <mat-label>{{ 'Comment' | translate }}</mat-label>
